@@ -1,237 +1,208 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Buat Hany</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk nyonya Dian</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
-    <script src="https://dekatutorial.github.io/crd/s.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://dekatutorial.github.io/crd/s.css" />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
     <style>
-        .cp {
-            margin: 15px 0;
-            padding: 10px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-        }
-        .cp p {
+        * {
             margin: 0;
-            color: white;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .cp h6 {
-            margin: 5px 0 0 0;
-            color: #aaa;
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .title {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 2rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 40px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease 0.3s both;
+            font-weight: 500;
+        }
+
+        .btn-enter {
+            padding: 15px 50px;
+            font-size: 1.5rem;
+            font-family: 'Dancing Script', cursive;
+            font-weight: 600;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            animation: fadeIn 1s ease 0.6s both;
+        }
+
+        .btn-enter:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.3);
+        }
+
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0;
+            animation: floatHeart 4s ease-in-out infinite;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(1);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.5rem;
+            }
+            .btn-enter {
+                font-size: 1.2rem;
+                padding: 12px 40px;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="ccp"></div>
-    <script>
-        // Fungsi untuk menyimpan pesan
-        function savePesan(pesan) {
-            const date = new Date();
-            const formattedDate = date.toLocaleDateString('id-ID', { 
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-            
-            const messageHtml = `
-                <div class="cp">
-                    <p><span>Pesan :</span><br />${pesan}</p>
-                    <h6>${formattedDate}</h6>
-                </div>`;
-
-            let messages = localStorage.getItem('messages') || '';
-            messages += messageHtml;
-            localStorage.setItem('messages', messages);
-            
-            return true;
-        }
-
-        // Fungsi untuk menampilkan pesan
-        function loadMessages() {
-            if (new URLSearchParams(window.location.search).has('pesan')) {
-                const messages = localStorage.getItem('messages') || '';
-                document.getElementById('ccp').innerHTML = messages;
-                return;
-            }
-            dt();
-        }
-        loadMessages();
-    </script>
-
-    <div class="ctnr">
-        <div class="lv">
-            <img src="img/0.png" height="150px" width="250px" />
-            <p>Klik kotaknya</p>
-        </div>
-        <div class="ctn">
-            <button class="btn next">[ Lanjut ]</button>
-            <button class="btn send">[ ini jangan di pencet ]</button>
-        </div>
+    <div class="floating-hearts" id="hearts"></div>
+    
+    <div class="container">
+        <h1 class="title">Something Special</h1>
+        <p class="subtitle">Untuk nyonya dian 🥳</p>
+        <button class="btn-enter" onclick="enterSite()">Buka Surprise ✨</button>
     </div>
 
     <script>
-        konten = [{
-                gambar: "img/1.jpg",
-                ucapan: "oiiiii",
-            },
-            {
-                gambar: "img/2.jpg",
-                ucapan: "Happybirthday ya",
-            },
-            {
-                gambar: "img/3.jpg",
-                ucapan: "ultah yang keberapa si hann?,yang ke 28 ya! aishh tuanya_-",
-            },
-            {
-                gambar: "img/4.jpg",
-                ucapan: "tapi telat ya ngucapinya??gomenn yaa",
-            },
-            {
-                gambar: "img/5.jpg",
-                ucapan: "tapi gapapa dehh,Selamat ulang tahun yaaa^_^",
-            },
-            {
-                gambar: "img/6.jpg",
-                ucapan: "apalagi ya?",
-            },
-            {
-                gambar: "img/7.jpg",
-                ucapan: "ouu iya semoga yang disemogakan tersemogakan aminn...",
-            },
-            {
-                gambar: "img/20.jpg",
-                ucapan: "apa yang hany impikan dan hany perjuangkan semoga kedepanya tercapai dan di lancarkan proses perjalananya",
-            },
-            {
-                gambar: "img/24.jpeg",
-                ucapan: "dan juga sekarang ataupun nanti kedepanya ada rintangan yang hany mau gamau harus hadapi",
-            },
-            {
-                gambar: "img/9.jpg",
-                ucapan: "harus tetap kuat,semangat dan sabar menghadapinya yaaa^_^",
-            },
-            {
-                gambar: "img/12.jpg",
-                ucapan: "ohh iya sebelumnya maaf ya karena tiba tiba ngilang",
-            },
-            {
-                gambar: "img/26.jpeg",
-                ucapan: "2 hari ini aku sakitt",
-            },
-            {
-                gambar: "img/22.png",
-                ucapan: "jadi mager buka hp apalagi laptop makanya baru sekarang aku bisa ngucapin",
-            },
-            {
-                gambar: "img/21.png",
-                ucapan: "maafin yaa?maafin dongg^_^",
-            },
-            {
-                gambar: "img/29.jpeg",
-                ucapan: "dan yang kata aku nyiapin sesuatu",
-            },
-            {
-                gambar: "img/23.jpeg",
-                ucapan: "yaa ini hehe",
-            },
-            {
-                gambar: "img/25.jpeg",
-                ucapan: "ciee uda 18 tahunn wkwkw",
-            },
-            {
-                ucapan: "Have a fabulous birthday^_^",
-            }
-        ];
-
-        musik = "img/d.mp3";
-        nomorWhatsapp = "+6285777183633";
-    </script>
-
-    <script>
-        // Override fungsi kirimPesan di s.js
-        function kirimPesan(pesan) {
-            if (savePesan(pesan)) {
-                return { s: 200 };
-            }
-            return { s: 500 };
+        // Buat floating hearts
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const hearts = ['🎉', '💖', '🥳', '🎊', '🎂', '🎈'];
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }, 500);
         }
-        
-        // Override fungsi-fungsi terkait WhatsApp
-        window.kirimPesan = function(pesan) {
-            return false; // Mencegah pengiriman pesan
-        };
-        
-        window.tujuanPesan = function() {
-            return false; // Mencegah redirect
-        };
-        
-        // Override fungsi untuk mencegah munculnya box pesan
-        window.writeMessage = function() {
-            return false; // Mencegah munculnya box pesan
-        };
-        
-        // Override fungsi untuk tombol send
-        document.querySelector('.btn.send').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (e && e.stopPropagation) {
-                e.stopPropagation();
-            }
-            Swal.fire({
-                title: 'kan udah dibilang jangan dipencet 😑 ',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Maaf 😅',
-                cancelButtonText: 'Bodoamat 😤',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Dialog kedua setelah klik Maaf
-                    Swal.fire({
-                        title: 'ohh iya aku juga minta maaf yaa,maafin yaa? 😊',
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonText: 'Iya 🥺',
-                        cancelButtonText: 'Ngga 😤',
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Tampilkan pesan tentang love pertemanan dulu
-                            Swal.fire({
-                                title: 'sebagai permintaan maaf aku! 😊',
-                                text: 'aku punya something yang special,klik button "liat" yaa 😆',
-                                icon: 'info',
-                                confirmButtonText: 'liat'
-                            }).then(() => {
-                                // Setelah klik OK, baru redirect ke love.html
-                                window.location.href = 'love.html';
-                            });
-                        } else {
-                            // Jika pilih Ngga
-                            Swal.fire({
-                                title: 'Yaudah deh 😔',
-                                text: 'Padahal kalo di maafin aku punya something buat kamu loh...',
-                                icon: 'info',
-                                confirmButtonText: 'OK'
-                            });
-                        }
-                    });
-                } else {
-                    // Jika klik Bodoamat, kembali ke awal
-                    window.location.reload();
-                }
+
+        function enterSite() {
+            // Confetti effect
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
             });
-            return false;
-        }, true);
-        
-        DekaTutorial(konten, musik);
+
+            setTimeout(() => {
+                window.location.href = 'content.html';
+            }, 500);
+        }
+
+        // Start hearts
+        createHearts();
+
+        // Auto confetti saat load
+        setTimeout(() => {
+            confetti({
+                particleCount: 50,
+                spread: 60,
+                origin: { y: 0.5 }
+            });
+        }, 1000);
     </script>
 </body>
 </html>

@@ -3,7 +3,66 @@
 !(function () {
   // Tambahkan fungsi untuk membuat dan mengontrol audio
   function createAudioPlayer() {
-    // Buat instance audio baru
+    // Jika sudah ada audio dari love.html, gunakan tombol yang sudah ada di HTML
+    if (window.lovePageAudio) {
+      const audio = window.lovePageAudio;
+      
+      // Cek apakah sudah ada tombol musik di HTML (dari love.html)
+      const existingBtn = document.getElementById('musicControlBtn');
+      if (existingBtn) {
+        // Gunakan tombol yang sudah ada, update event handler jika perlu
+        existingBtn.onclick = () => {
+          if (audio.paused) {
+            audio.play();
+          } else {
+            audio.pause();
+          }
+        };
+        return; // Jangan buat tombol baru
+      }
+      
+      // Jika tidak ada tombol di HTML, baru buat tombol baru
+      const musicBtn = document.createElement('button');
+      musicBtn.innerHTML = '🎵';
+      musicBtn.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 10px;
+        z-index: 1000;
+        padding: 10px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.2);
+        border: none;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+      `;
+      
+      musicBtn.onmouseover = () => {
+        musicBtn.style.transform = 'scale(1.1)';
+        musicBtn.style.background = 'rgba(255,255,255,0.3)';
+      };
+      
+      musicBtn.onmouseout = () => {
+        musicBtn.style.transform = 'scale(1)';
+        musicBtn.style.background = 'rgba(255,255,255,0.2)';
+      };
+      
+      // Event untuk tombol musik
+      musicBtn.onclick = () => {
+        if (audio.paused) {
+          audio.play();
+        } else {
+          audio.pause();
+        }
+      };
+      
+      document.body.appendChild(musicBtn);
+      return;
+    }
+    
+    // Jika tidak ada audio dari love.html, buat audio player baru
     const audio = new Audio();
     audio.src = 'img/hati.mp3';
     audio.loop = true;

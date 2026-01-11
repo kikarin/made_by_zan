@@ -1,12 +1,235 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="id" >
 <head>
   <meta charset="UTF-8">
-  <title>lope</title>
+  <title>For You 💕</title>
   <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Upgrade Styling untuk love.html */
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      background-size: 200% 200%;
+      animation: gradientMove 10s ease infinite;
+    }
 
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Overlay untuk efek glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 100;
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(255,255,255,0.6);
+      border-radius: 50%;
+      animation: floatParticle 8s ease-in-out infinite;
+    }
+
+    @keyframes floatParticle {
+      0%, 100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(-100px) translateX(50px);
+      }
+    }
+
+    /* Text overlay */
+    .welcome-text {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 200;
+      color: white;
+      font-family: 'Dancing Script', cursive;
+      font-size: 3rem;
+      text-align: center;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      opacity: 0;
+      animation: fadeInOut 3s ease;
+      pointer-events: none;
+      font-weight: 600;
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; transform: translate(-50%, -60%); }
+      20%, 80% { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    /* Instruction text */
+    .instruction-text {
+      position: fixed;
+      bottom: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      color: white;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      text-align: center;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      opacity: 0;
+      animation: fadeInInstruction 1s ease 3.5s forwards;
+      pointer-events: none;
+      font-weight: 500;
+      background: rgba(0,0,0,0.3);
+      padding: 15px 30px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    @keyframes fadeInInstruction {
+      from { 
+        opacity: 0; 
+        transform: translateX(-50%) translateY(20px);
+      }
+      to { 
+        opacity: 1; 
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    @keyframes fadeOutInstruction {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    canvas {
+      filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+      transition: filter 0.3s ease;
+    }
+
+    canvas:hover {
+      filter: drop-shadow(0 0 30px rgba(255,255,255,0.5));
+    }
+
+    /* Music control button */
+    .music-control-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      padding: 15px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .music-control-btn:hover {
+      transform: scale(1.1);
+      background: rgba(255,255,255,0.3);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Review button di sebelah music */
+    .review-control-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 80px;
+      z-index: 1000;
+      padding: 15px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .review-control-btn:hover {
+      transform: scale(1.1);
+      background: rgba(255,255,255,0.3);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    @media (max-width: 768px) {
+      .welcome-text {
+        font-size: 2rem;
+      }
+      .instruction-text {
+        font-size: 1.5rem;
+        padding: 12px 25px;
+        bottom: 25%;
+      }
+      .music-control-btn {
+        bottom: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+      }
+      .review-control-btn {
+        bottom: 15px;
+        right: 70px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="particles" id="particles"></div>
+  <div class="welcome-text">For You 💕</div>
+  <div class="instruction-text" id="instructionText">Coba gerak-gerakkin hatinya 💕</div>
+  <button class="music-control-btn" id="musicControlBtn" title="Play/Pause Musik">🎵</button>
+  <button class="review-control-btn" id="reviewControlBtn" title="Review" onclick="showReviewDialog()">💝</button>
 
   <div class="bubbles">
     <div class="bubble"><svg class="heart" viewBox="0 0 32 32">
@@ -111,6 +334,125 @@
 <script>
   const svg_terrain = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512px' height='512px' viewBox='0 0 512 512'%3E%3Cpath id='パス' fill='none' stroke='black' stroke-width='1' d='M 256.75,151.50 C 256.75,151.50 263.33,132.67 263.33,132.67 263.33,132.67 272.00,110.67 272.00,110.67 272.00,110.67 283.33,97.33 283.33,97.33 283.33,97.33 296.67,81.33 296.67,81.33 296.67,81.33 314.67,66.00 314.67,66.00 314.67,66.00 332.67,56.67 332.67,56.67 332.67,56.67 350.67,52.00 350.67,52.00 350.67,52.00 374.00,46.00 374.00,46.00 374.00,46.00 392.67,47.33 392.67,47.33 392.67,47.33 416.67,51.33 416.67,51.33 416.67,51.33 435.33,57.33 435.33,57.33 435.33,57.33 456.67,67.33 456.67,67.33 456.67,67.33 472.00,80.00 472.00,80.00 472.00,80.00 485.33,96.67 485.33,96.67 485.33,96.67 495.33,114.67 495.33,114.67 495.33,114.67 504.00,132.67 504.00,132.67 504.00,132.67 510.00,152.67 510.00,152.67 510.00,152.67 509.33,176.00 509.33,176.00 509.33,176.00 508.00,207.33 508.00,207.33 508.00,207.33 497.33,252.67 497.33,252.67 497.33,252.67 484.00,285.33 484.00,285.33 484.00,285.33 467.33,318.00 467.33,318.00 467.33,318.00 446.67,343.33 446.67,343.33 446.67,343.33 426.67,365.33 426.67,365.33 426.67,365.33 404.67,384.67 404.67,384.67 404.67,384.67 380.67,402.00 380.67,402.00 380.67,402.00 358.67,418.67 358.67,418.67 358.67,418.67 328.67,433.33 328.67,433.33 328.67,433.33 307.33,446.67 307.33,446.67 307.33,446.67 284.67,454.00 284.67,454.00 284.67,454.00 257.33,464.67 257.33,464.67 257.33,464.67 224.00,450.67 224.00,450.67 224.00,450.67 194.00,438.67 194.00,438.67 194.00,438.67 173.33,428.00 173.33,428.00 173.33,428.00 146.00,412.00 146.00,412.00 146.00,412.00 122.67,393.33 122.67,393.33 122.67,393.33 95.33,374.00 95.33,374.00 95.33,374.00 72.00,351.33 72.00,351.33 72.00,351.33 50.67,325.33 50.67,325.33 50.67,325.33 39.33,307.33 39.33,307.33 39.33,307.33 25.33,285.33 25.33,285.33 25.33,285.33 14.00,259.33 14.00,259.33 14.00,259.33 4.00,229.33 4.00,229.33 4.00,229.33 2.00,209.33 2.00,209.33 2.00,209.33 0.67,175.33 0.67,175.33 0.67,175.33 2.67,151.33 2.67,151.33 2.67,151.33 10.67,126.67 10.67,126.67 10.67,126.67 19.33,110.00 19.33,110.00 19.33,110.00 34.00,85.33 34.00,85.33 34.00,85.33 52.00,71.33 52.00,71.33 52.00,71.33 76.00,56.67 76.00,56.67 76.00,56.67 106.67,45.33 106.67,45.33 106.67,45.33 132.00,45.33 132.00,45.33 132.00,45.33 161.33,50.67 161.33,50.67 161.33,50.67 178.67,56.67 178.67,56.67 178.67,56.67 198.67,67.33 198.67,67.33 198.67,67.33 216.67,78.67 216.67,78.67 216.67,78.67 230.00,95.33 230.00,95.33 230.00,95.33 240.00,110.67 240.00,110.67 240.00,110.67 248.53,129.37 248.53,129.37 248.53,129.37 251.65,140.15 251.65,140.15 251.65,140.15 255.75,151.50 255.75,151.50 255.75,151.50 259.33,0.67 259.33,0.67 259.33,0.67 0.28,0.57 0.28,0.57 0.28,0.57 -0.85,511.81 -0.85,511.81 -0.85,511.81 511.52,511.81 511.52,511.81 511.52,511.81 512.00,-0.50 512.00,-0.50 512.00,-0.50 263.00,0.50 263.00,0.50 263.00,0.50 256.75,151.50 256.75,151.50 Z' /%3E%3C/svg%3E";
   const svg_heart = "data:image/svg+xml,%3Csvg id='_x32_' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='512px' height='512px' viewBox='0 0 512 512' style='width: 512px; height: 512px; opacity: 1;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%234B4B4B;%7D %3C/style%3E%3Cg%3E%3Cpath class='st0' d='M384,46.469c-70.688,0-128,57.313-128,128.016c0-70.703-57.313-128.016-128-128.016S0,103.781,0,174.484 c0,66.484,31.313,193.391,218.563,276.234c11.844,5.25,35.703,14.469,35.703,14.469c0.547,0.219,1.141,0.344,1.734,0.344 s1.188-0.125,1.734-0.344c0,0,23.859-9.219,35.703-14.469C480.688,367.875,512,240.969,512,174.484 C512,103.781,454.688,46.469,384,46.469z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E";
+
+  // Buat particles
+  function createParticles() {
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 8 + 's';
+      particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+      container.appendChild(particle);
+    }
+  }
+
+  // Initialize particles saat load
+  window.addEventListener('load', createParticles);
+
+  // Auto-play musik saat halaman load
+  window.addEventListener('load', function() {
+    const audio = new Audio('music/SpotiDown.mp3');
+    audio.loop = true;
+    audio.volume = 0.5;
+    
+    // Setup tombol kontrol musik
+    const musicBtn = document.getElementById('musicControlBtn');
+    if (musicBtn) {
+      musicBtn.onclick = () => {
+        if (audio.paused) {
+          audio.play();
+        } else {
+          audio.pause();
+        }
+      };
+    }
+    
+    // Coba autoplay langsung
+    const playPromise = audio.play();
+    
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        // Musik berhasil diputar
+        console.log('Musik berhasil auto-play');
+      }).catch(error => {
+        // Autoplay gagal, tunggu interaksi user
+        console.log('Autoplay blocked, waiting for user interaction');
+        
+        // Coba play saat user pertama kali klik/touch
+        const tryPlay = () => {
+          audio.play().then(() => {
+            document.removeEventListener('click', tryPlay);
+            document.removeEventListener('touchstart', tryPlay);
+          });
+        };
+        
+        document.addEventListener('click', tryPlay);
+        document.addEventListener('touchstart', tryPlay);
+      });
+    }
+    
+    // Simpan audio ke window agar bisa diakses dari script.js jika perlu
+    window.lovePageAudio = audio;
+  });
+
+  // Fade out instruction text setelah beberapa detik
+  setTimeout(function() {
+    const instructionText = document.getElementById('instructionText');
+    if (instructionText) {
+      instructionText.style.animation = 'fadeOutInstruction 1s ease forwards';
+      setTimeout(function() {
+        instructionText.style.display = 'none';
+      }, 1000);
+    }
+  }, 8000); // Hilang setelah 8 detik (3 detik welcome + 4.5 detik show instruction)
+
+  // Show review dialog setelah 20 detik
+  setTimeout(function() {
+    showReviewDialog();
+  }, 20000); // Muncul setelah 20 detik
+
+  // Function untuk show review dialog
+  function showReviewDialog() {
+    Swal.fire({
+      title: 'mau lanjut ga nihh? 🤔',
+      text: 'Pilih opsi kamu',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Next',
+      cancelButtonText: 'Masih Pengen Liat Love 💕',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      allowOutsideClick: false,
+      allowEscapeKey: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Jika klik Next - redirect ke review.html
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+
+        setTimeout(() => {
+          window.location.href = 'review.html';
+        }, 500);
+      } else {
+        // Jika klik "Masih Pengen Liat Love" - tutup dialog, tetap di halaman
+        Swal.fire({
+          title: 'Oke deh! 💕',
+          text: 'Nikmati momennya ya!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#3085d6',
+          timer: 2000,
+          timerProgressBar: true
+        });
+      }
+    });
+  }
 </script>
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js'></script>
