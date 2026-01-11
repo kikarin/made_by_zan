@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="./style.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* Upgrade Styling untuk love.html */
     body {
@@ -100,7 +99,6 @@
       transform: translateX(-50%);
       z-index: 200;
       color: white;
-      font-family: 'Dancing Script', cursive;
       font-size: 2rem;
       text-align: center;
       text-shadow: 0 4px 20px rgba(0,0,0,0.5);
@@ -198,6 +196,19 @@
       box-shadow: 0 6px 20px rgba(0,0,0,0.3);
     }
 
+    /* Custom styling untuk SweetAlert2 modal */
+    .swal2-actions {
+      gap: 10px !important;
+      margin-top: 1.5em !important;
+    }
+    
+    .swal2-confirm,
+    .swal2-cancel {
+      padding: 0.625em 1em !important;
+      font-size: 1.0625em !important;
+      margin: 0.3125em !important;
+    }
+
     @media (max-width: 768px) {
       .welcome-text {
         font-size: 2rem;
@@ -220,6 +231,52 @@
         width: 45px;
         height: 45px;
         font-size: 1.3rem;
+      }
+      
+      /* Custom styling SweetAlert2 untuk mobile */
+      .swal2-popup {
+        padding: 1em !important;
+        width: 90% !important;
+        max-width: 90% !important;
+        margin: 0 !important;
+      }
+      
+      .swal2-title {
+        font-size: 1.3em !important;
+        margin-bottom: 0.5em !important;
+        line-height: 1.3 !important;
+        padding: 0 0.5em !important;
+      }
+      
+      .swal2-content {
+        font-size: 0.95em !important;
+        margin-bottom: 0.8em !important;
+        padding: 0 !important;
+      }
+      
+      .swal2-actions {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0.5em !important;
+        margin-top: 0.8em !important;
+        margin-bottom: 0 !important;
+      }
+      
+      .swal2-confirm,
+      .swal2-cancel {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0.6em 0.8em !important;
+        font-size: 0.95em !important;
+      }
+      
+      .swal2-html-container {
+        margin: 0.5em 0 !important;
+        padding: 0 !important;
+      }
+      
+      .swal2-icon {
+        margin-bottom: 0.5em !important;
       }
     }
   </style>
