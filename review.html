@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Jujur</title>
+    <title>Untuk Shan Shan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.4/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
     <style>
@@ -23,7 +24,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Dancing Script', cursive;
+            font-family: 'Lora', serif;
             padding: 20px;
         }
 
@@ -69,7 +70,7 @@
             z-index: 10;
             background: rgba(255,255,255,0.15);
             backdrop-filter: blur(10px);
-            padding: 60px 40px;
+            padding: 50px 40px;
             border-radius: 30px;
             border: 1px solid rgba(255,255,255,0.2);
             box-shadow: 0 8px 32px rgba(0,0,0,0.2);
@@ -89,21 +90,46 @@
         }
 
         .title {
-            font-size: 3rem;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
             color: white;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-shadow: 0 4px 20px rgba(0,0,0,0.3);
             font-weight: 700;
             animation: fadeInDown 1s ease;
         }
 
-        .subtitle {
-            font-size: 1.8rem;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 50px;
+        .message {
+            font-family: 'Lora', serif;
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.95);
+            line-height: 1.7;
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
             font-weight: 500;
-            animation: fadeInUp 1s ease 0.3s both;
+            margin-bottom: 1.4em;
+            animation: fadeInUp 1s ease both;
+        }
+
+        .message:nth-child(2) { animation-delay: 0.1s; }
+        .message:nth-child(3) { animation-delay: 0.25s; }
+        .message:nth-child(4) { animation-delay: 0.4s; }
+        .message:nth-child(5) { animation-delay: 0.55s; }
+        .message:nth-child(6) { animation-delay: 0.7s; }
+        .message:nth-child(7) { animation-delay: 0.85s; }
+        .message:nth-child(8) { animation-delay: 1s; }
+        .message:nth-child(9) { animation-delay: 1.15s; }
+        .message:nth-child(10) { animation-delay: 1.3s; }
+        .message:nth-child(11) { animation-delay: 1.45s; }
+        .message:nth-child(12) { animation-delay: 1.6s; }
+        .message:nth-child(13) { animation-delay: 1.75s; }
+        .message:nth-child(14) { animation-delay: 1.9s; }
+
+        .message.closing {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 10px;
+            margin-bottom: 0;
         }
 
         @keyframes fadeInDown {
@@ -128,135 +154,6 @@
             }
         }
 
-        /* Slider Container */
-        .slider-container {
-            margin: 40px 0;
-            position: relative;
-        }
-
-        .slider-label {
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            font-weight: 500;
-        }
-
-        .slider-wrapper {
-            position: relative;
-            width: 100%;
-            height: 60px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 30px;
-            border: 2px solid rgba(255,255,255,0.3);
-            overflow: hidden;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            outline: none;
-            cursor: pointer;
-            position: relative;
-            z-index: 2;
-            margin: 0;
-            padding: 0;
-        }
-
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 60px;
-            height: 60px;
-            background: rgba(255,255,255,0.9);
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-            border: 3px solid rgba(255,255,255,0.5);
-        }
-
-        .slider::-webkit-slider-thumb:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-        }
-
-        .slider::-moz-range-thumb {
-            width: 60px;
-            height: 60px;
-            background: rgba(255,255,255,0.9);
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-            border: 3px solid rgba(255,255,255,0.5);
-        }
-
-        .slider::-moz-range-thumb:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-        }
-
-        .slider-value {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2rem;
-            font-weight: 700;
-            color: white;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .slider-fill {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.5));
-            border-radius: 30px;
-            transition: width 0.3s ease;
-            pointer-events: none;
-        }
-
-        .value-display {
-            margin-top: 30px;
-            font-size: 2.5rem;
-            color: white;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            font-weight: 700;
-        }
-
-        .btn-save {
-            margin-top: 40px;
-            padding: 15px 50px;
-            font-size: 1.5rem;
-            font-family: 'Dancing Script', cursive;
-            font-weight: 600;
-            background: rgba(255,255,255,0.25);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.4);
-            border-radius: 50px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-            animation: fadeInUp 1s ease 0.6s both;
-        }
-
-        .btn-save:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-            background: rgba(255,255,255,0.35);
-        }
-
-        /* Music control button */
         .music-control-btn {
             position: fixed;
             bottom: 20px;
@@ -285,36 +182,29 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
 
+        .music-control-btn.needs-play {
+            animation: musicPulse 1.2s ease-in-out infinite;
+            background: rgba(255,255,255,0.4);
+            border-color: rgba(255,255,255,0.8);
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+            50% { transform: scale(1.15); box-shadow: 0 0 20px rgba(255,255,255,0.6); }
+        }
+
         @media (max-width: 768px) {
             .container {
-                padding: 40px 30px;
+                padding: 40px 28px;
             }
             .title {
-                font-size: 2rem;
+                font-size: 2.1rem;
             }
-            .subtitle {
-                font-size: 1.4rem;
+            .message {
+                font-size: 1.1rem;
             }
-            .slider-label {
-                font-size: 1.2rem;
-            }
-            .slider-wrapper {
-                height: 50px;
-            }
-            .slider::-webkit-slider-thumb,
-            .slider::-moz-range-thumb {
-                width: 50px;
-                height: 50px;
-            }
-            .slider-value {
-                font-size: 1.5rem;
-            }
-            .value-display {
-                font-size: 2rem;
-            }
-            .btn-save {
-                font-size: 1.2rem;
-                padding: 12px 40px;
+            .message.closing {
+                font-size: 1.45rem;
             }
             .music-control-btn {
                 bottom: 15px;
@@ -331,32 +221,22 @@
     <button class="music-control-btn" id="musicControlBtn" title="Play/Pause Musik">🎵</button>
     
     <div class="container">
-        <h1 class="title">Review Jujur</h1>
-        <p class="subtitle">Berapa salting nyonyaa? 🤔</p>
-        
-        <div class="slider-container">
-            <div class="slider-label">Geser slider untuk nilai salting:</div>
-            <div class="slider-wrapper">
-                <div class="slider-fill" id="sliderFill"></div>
-                <div class="slider-value" id="sliderValue">50%</div>
-                <input 
-                    type="range" 
-                    min="0" 
-                    max="100" 
-                    value="50" 
-                    class="slider" 
-                    id="saltingSlider"
-                    oninput="updateSlider(this.value)"
-                >
-            </div>
-            <div class="value-display" id="valueDisplay">50%</div>
-        </div>
-
-        <button class="btn-save" onclick="saveAndSend()">Save 💾</button>
+        <h1 class="title">sampai di sini dulu ya, shan shan.</h1>
+        <p class="message">semua yang aku rasain... udah aku ceritain di halaman-halaman sebelumnya.</p>
+        <p class="message">jujur, sekarang aku malah jadi malu sendiri. aku juga nggak tahu harus bersikap gimana setelah kamu baca semuanya.</p>
+        <p class="message">tapi aku nggak nulis semua ini buat minta jawaban. aku juga nggak lagi nunggu balasan atau berharap kamu harus ngasih respons apa pun.</p>
+        <p class="message">aku cuma pengen jujur. itu aja.</p>
+        <p class="message">perasaan ini sebenernya baru kerasa jelas banget belakangan. sempet aku mau diem aja dan kupendem sendiri.</p>
+        <p class="message">tapi setelah kejadian kemarin... rasanya aku memang perlu menyampaikannya sekali, supaya nggak terus aku simpan.</p>
+        <p class="message">jadi, kamu nggak perlu merasa terbebani sama apa yang aku tulis. kamu bebas menyikapinya dengan cara yang paling nyaman buat kamu.</p>
+        <p class="message">sekali lagi, maaf ya buat kejadian kemarin.</p>
+        <p class="message">dan makasih... karena udah mau meluangkan waktu buat baca semuanya sampai selesai.</p>
+        <p class="message">semoga setelah ini, hatimu tetap baik-baik aja dan terasa sedikit lebih ringan.</p>
+        <p class="message">itu aja.</p>
+        <p class="message closing">terima kasih ya, shan shan. 🤍</p>
     </div>
 
     <script>
-        // Buat floating hearts
         function createHearts() {
             const heartsContainer = document.getElementById('hearts');
             const hearts = ['💕', '💖', '💗', '💝', '❤️', '💓', '💞', '💟'];
@@ -376,91 +256,81 @@
             }, 600);
         }
 
-        // Update slider
-        function updateSlider(value) {
-            const sliderValue = document.getElementById('sliderValue');
-            const valueDisplay = document.getElementById('valueDisplay');
-            const sliderFill = document.getElementById('sliderFill');
-            
-            sliderValue.textContent = value + '%';
-            valueDisplay.textContent = value + '%';
-            sliderFill.style.width = value + '%';
-            
-            // Confetti kecil saat geser
-            if (value > 0 && value % 25 === 0) {
-                confetti({
-                    particleCount: 10,
-                    spread: 30,
-                    origin: { y: 0.6 }
-                });
-            }
-        }
-
-        // Save dan kirim ke WhatsApp
-        function saveAndSend() {
-            const slider = document.getElementById('saltingSlider');
-            const value = slider.value;
-            
-            // Confetti saat save
-            confetti({
-                particleCount: 150,
-                spread: 80,
-                origin: { y: 0.6 }
-            });
-
-            // Format pesan untuk WhatsApp
-            const message = `Nilai salting: ${value}%`;
-            const phoneNumber = '085777183633';
-            
-            // URL WhatsApp dengan format
-            const whatsappUrl = `https://wa.me/${phoneNumber.replace(/^0/, '62')}?text=${encodeURIComponent(message)}`;
-            
-            // Redirect ke WhatsApp
-            setTimeout(() => {
-                window.open(whatsappUrl, '_blank');
-            }, 500);
-        }
-
-        // Auto-play musik saat halaman load
         window.addEventListener('load', function() {
-            const audio = new Audio('music/Ten2Five.mp3');
+            const audio = new Audio('music/Bertaut.mp3');
             audio.loop = true;
             audio.volume = 0.5;
-            
+            window.reviewPageAudio = audio;
+
             const musicBtn = document.getElementById('musicControlBtn');
+
+            function markPlaying() {
+                if (musicBtn) musicBtn.classList.remove('needs-play');
+            }
+
+            function markNeedsPlay() {
+                if (musicBtn) musicBtn.classList.add('needs-play');
+            }
+
+            function unlockMusic() {
+                return audio.play().then(() => {
+                    markPlaying();
+                    return true;
+                });
+            }
+
             if (musicBtn) {
                 musicBtn.onclick = () => {
                     if (audio.paused) {
-                        audio.play();
+                        unlockMusic().catch(() => {});
                     } else {
                         audio.pause();
+                        markNeedsPlay();
                     }
                 };
             }
-            
+
             const playPromise = audio.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
-                    console.log('Musik berhasil auto-play');
-                }).catch(error => {
-                    console.log('Autoplay blocked, waiting for user interaction');
-                    const tryPlay = () => {
-                        audio.play().then(() => {
-                            document.removeEventListener('click', tryPlay);
-                            document.removeEventListener('touchstart', tryPlay);
-                        });
+                    markPlaying();
+                }).catch(() => {
+                    markNeedsPlay();
+
+                    const cleanupGesture = () => {
+                        document.removeEventListener('click', tryPlay);
+                        document.removeEventListener('touchstart', tryPlay);
                     };
+
+                    const tryPlay = () => {
+                        unlockMusic().then(() => {
+                            cleanupGesture();
+                            if (Swal.isVisible()) Swal.close();
+                        }).catch(() => {});
+                    };
+
+                    Swal.fire({
+                        title: 'putar musik dulu ya 🎵',
+                        text: 'klik tombol di bawah biar lagunya nyala',
+                        icon: 'info',
+                        confirmButtonText: 'putar 🎵',
+                        confirmButtonColor: '#3085d6',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then(() => {
+                        unlockMusic().finally(() => {
+                            cleanupGesture();
+                        });
+                    });
+
                     document.addEventListener('click', tryPlay);
                     document.addEventListener('touchstart', tryPlay);
                 });
             }
-            window.reviewPageAudio = audio;
         });
 
-        // Initialize
         createHearts();
 
-        // Auto confetti saat load
         setTimeout(() => {
             confetti({
                 particleCount: 50,
